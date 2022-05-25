@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
 import makeStyles from '@mui/styles/makeStyles'
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { Person } from '../../store/types/appState'
@@ -24,23 +25,23 @@ export const TableComponent: React.FC<props> = ({ tableId, tableData }) => {
   const dispatch = useDispatch()
   const classes = useStyles()
 
-  const handleDrop = useCallback(
-    (id: number) => {
-      dispatch(
-        updateTable({
-          tableId,
-          persons: tableData.filter((e) => e.id !== id),
-        }),
-      )
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const { id, action } = e.currentTarget.dataset
+      const personId = Number(id)
+      if (action === 'edit') {
+        dispatch(setEditableItem({ tableId, personId }))
+      }
+      if (action === 'drop') {
+        dispatch(
+          updateTable({
+            tableId,
+            persons: tableData.filter((e) => e.id !== personId),
+          }),
+        )
+      }
     },
     [dispatch, tableData, tableId],
-  )
-
-  const handleEdit = useCallback(
-    (personId: number) => {
-      dispatch(setEditableItem({ tableId, personId }))
-    },
-    [dispatch, tableId],
   )
 
   const columns: Array<keyof Person> = ['name', 'surname', 'age', 'city']
@@ -59,8 +60,8 @@ export const TableComponent: React.FC<props> = ({ tableId, tableData }) => {
         <Table stickyHeader className={classes.table}>
           <TableHead>
             <TableRow>
-              {columns.map((value, index) => (
-                <TableCell key={index} align={'left'}>
+              {columns.map((value) => (
+                <TableCell key={uuidv4()} align={'left'}>
                   {value.charAt(0).toUpperCase() + value.slice(1)}
                 </TableCell>
               ))}
@@ -78,10 +79,24 @@ export const TableComponent: React.FC<props> = ({ tableId, tableData }) => {
                 <TableCell key={index} align={'right'}>
                   {row && (
                     <>
-                      <Button color={'primary'} size={'small'} variant={'text'} onClick={() => handleEdit(row.id)}>
+                      <Button
+                        color={'primary'}
+                        size={'small'}
+                        variant={'text'}
+                        data-id={row.id}
+                        data-action="edit"
+                        onClick={handleClick}
+                      >
                         Edit
                       </Button>
-                      <Button color={'error'} size={'small'} variant={'text'} onClick={() => handleDrop(row.id)}>
+                      <Button
+                        color={'error'}
+                        size={'small'}
+                        variant={'text'}
+                        data-id={row.id}
+                        data-action="drop"
+                        onClick={handleClick}
+                      >
                         Delete
                       </Button>
                     </>

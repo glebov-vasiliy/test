@@ -3,7 +3,10 @@ import * as Actions from '../actions'
 import { createReducer } from 'typesafe-actions'
 import { RootAction } from '../types'
 
-const initialState: AppState = { defaultPerson: { id: 0, name: '', surname: '', age: '', city: '' }, tables: [[]] }
+export const initialState: AppState = {
+  defaultPerson: { id: 0, name: '', surname: '', age: '', city: '' },
+  tables: [[]],
+}
 export const appReducer = createReducer<AppState, RootAction>(initialState)
   .handleAction(Actions.addItem, (state, { payload: person }) => ({
     ...state,

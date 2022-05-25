@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useState } from 'react'
 import makeStyles from '@mui/styles/makeStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { defaultPersonSelector } from '../../store/Selectors'
-import { Person } from '../../store/types/appState'
-import { addItem } from '../../store/actions'
-import { Form } from './Form'
+import { defaultPersonSelector } from '../store/Selectors'
+import { Person } from '../store/types/appState'
+import { addItem } from '../store/actions'
+import { Form } from '../components/Form'
 
 const useStyles = makeStyles({
   container: {

@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
 import makeStyles from '@mui/styles/makeStyles'
-import { tablesSelector } from '../../store/Selectors'
-import { TableComponent } from './TableComponent'
-import { TableActions } from './TableActions'
+import { tablesSelector } from '../store/Selectors'
+import { TableComponent } from '../components/Table'
+import { TableActions } from '../components/Table'
 
 const useStyles = makeStyles({
   wrapper: { padding: '12px' },
@@ -15,7 +16,7 @@ export const TablesContainer: FC = () => {
   return (
     <>
       {tables.map((table, index) => (
-        <div key={index} className={classes.wrapper}>
+        <div key={uuidv4()} className={classes.wrapper}>
           <TableActions tableId={index} />
           <TableComponent tableData={table} tableId={index} />
         </div>

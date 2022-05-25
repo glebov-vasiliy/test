@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app Reducer Should be return the addItem state 1`] = `
+Object {
+  "defaultPerson": Object {
+    "age": "",
+    "city": "",
+    "id": 0,
+    "name": "",
+    "surname": "",
+  },
+  "tables": Array [
+    Array [
+      Object {
+        "age": "22",
+        "city": "city",
+        "id": 2,
+        "name": "name",
+        "surname": "surname",
+      },
+      Object {
+        "age": "22",
+        "city": "city",
+        "id": 1,
+        "name": "name",
+        "surname": "surname",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`app Reducer Should be return the saveItem state 1`] = `
+Object {
+  "defaultPerson": Object {
+    "age": "",
+    "city": "",
+    "id": 0,
+    "name": "",
+    "surname": "",
+  },
+  "tables": Array [
+    Array [
+      Object {
+        "age": "23",
+        "city": "city1",
+        "id": 1,
+        "name": "name1",
+        "surname": "surname1",
+      },
+    ],
+  ],
+}
+`;

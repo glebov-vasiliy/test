@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import makeStyles from '@mui/styles/makeStyles'
-import { TablesContainer } from './components/Table'
-import { FormsContainer } from './components/Form'
+import { TablesContainer } from './containers/TablesContainer'
+import { FormsContainer } from './containers/FormsContainer'
 import { ModalDialog } from './components/Modal'
 
 const useStyles = makeStyles({

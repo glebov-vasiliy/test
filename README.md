@@ -1,5 +1,3 @@
-live demo https://gleboff.su/
-
 Т/З
 Генератор таблиц.
 

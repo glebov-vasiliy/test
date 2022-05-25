@@ -23,25 +23,28 @@ export const TableActions: FC<props> = ({ tableId }) => {
   const dispatch = useDispatch()
   const tables = useSelector(tablesSelector)
 
-  const handleDrop = useCallback(() => {
-    const newTables = [...tables]
-    newTables.splice(tableId, 1)
-    dispatch(updateTables(newTables))
-  }, [dispatch, tableId, tables])
-
-  const handleCopy = useCallback(() => {
-    const newTables = [...tables]
-    newTables.splice(tableId + 1, 0, tables[tableId])
-    dispatch(updateTables(newTables))
-  }, [dispatch, tableId, tables])
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const { action } = e.currentTarget.dataset
+      const newTables = [...tables]
+      if (action === 'copy') {
+        newTables.splice(tableId + 1, 0, tables[tableId])
+      }
+      if (action === 'drop') {
+        newTables.splice(tableId, 1)
+      }
+      dispatch(updateTables(newTables))
+    },
+    [dispatch, tableId, tables],
+  )
 
   return (
     <div className={classes.container}>
-      <Button variant={'contained'} size={'medium'} onClick={() => handleCopy()}>
+      <Button variant={'contained'} size={'medium'} data-action="copy" onClick={handleClick}>
         Copy table
       </Button>
       {tableId !== 0 && (
-        <IconButton color="error" component="span" onClick={() => handleDrop()}>
+        <IconButton color="error" component="span" data-action="drop" onClick={handleClick}>
           <Close />
         </IconButton>
       )}
